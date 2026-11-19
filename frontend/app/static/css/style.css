@@ -1,0 +1,36 @@
+/* Variables globales: permiten cambiar la paleta del tema desde un solo lugar. */
+:root { --fondo:#09131f; --panel:#101f30; --panel-borde:#274154; --acento:#4ee1d0; --texto:#f0f6fb; --suave:#a5b5c6; }
+/* El fondo combina gradientes suaves para crear una identidad tecnologica. */
+body { min-height:100vh; background:radial-gradient(circle at 15% 20%,rgba(25,119,136,.23),transparent 38%),radial-gradient(circle at 90% 75%,rgba(22,76,121,.18),transparent 34%),var(--fondo); color:var(--texto); font-family:system-ui,-apple-system,'Segoe UI',sans-serif; }
+/* La barra superior se mantiene sutil para priorizar el formulario. */
+.app-nav { background:rgba(9,19,31,.88); backdrop-filter:blur(12px); }
+/* Identificador compacto que funciona como marca de la aplicacion. */
+.brand-symbol { display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--acento);color:#08212a;font-size:.9rem; }
+.text-accent {color:var(--acento)}
+/* Los textos secundarios mantienen contraste adecuado sobre el fondo. */
+.text-soft {color:var(--suave)!important}
+.eyebrow {color:var(--acento);font-size:.73rem;font-weight:800;letter-spacing:.18em}
+.tracking {letter-spacing:.13em}
+/* Etiquetas de tecnologia y caracteristicas del flujo. */
+.tech-badge,.feature-pill {border:1px solid var(--panel-borde);background:rgba(21,48,66,.72);color:#c8dfeb;padding:.65rem .85rem;border-radius:999px;font-size:.78rem}
+/* El panel principal usa borde y sombra sin recargar la interfaz. */
+.generator-card {border:1px solid var(--panel-borde);border-radius:24px;background:linear-gradient(155deg,rgba(19,42,60,.96),rgba(12,27,42,.98));box-shadow:0 28px 70px rgba(0,0,0,.28)}
+/* Punto de estado decorativo: no afirma que la API este conectada. */
+.status-pill {font-size:.73rem;color:#b4d7d9;background:rgba(50,180,165,.1);border:1px solid rgba(78,225,208,.26);padding:.45rem .7rem;border-radius:999px}
+.status-dot {display:inline-block;width:7px;height:7px;margin-right:.3rem;border-radius:50%;background:var(--acento)}
+/* Campos del formulario con contornos y foco visibles. */
+.invoice-input {background:#0b1927!important;color:var(--texto)!important;border:1px solid #315064!important;border-radius:12px;min-height:54px}
+.invoice-input::placeholder {color:#8399aa}
+.invoice-input:focus {box-shadow:0 0 0 .2rem rgba(78,225,208,.16)!important;border-color:var(--acento)!important}
+/* El boton principal destaca con gradiente turquesa. */
+.btn-generate {border:0;border-radius:12px;color:#07252d;background:linear-gradient(95deg,#49dec9,#6ed6f1);min-height:54px;transition:transform .2s,filter .2s}
+.btn-generate:hover {color:#07252d;filter:brightness(1.08);transform:translateY(-2px)}
+.btn-generate:disabled {opacity:.72;transform:none}
+.divider-line {height:1px;background:var(--panel-borde)}
+/* Tarjetas que describen el proceso solicitado por el docente. */
+.info-card {padding:1.6rem;border-radius:18px;border:1px solid var(--panel-borde);background:rgba(17,34,51,.8)}
+.step-number {color:var(--acento);font-weight:800;font-size:.83rem;letter-spacing:.12em}
+/* En pantallas estrechas se reduce el espacio sin ocultar contenido. */
+@media(max-width:768px) {.hero-row{padding-top:0}.generator-card{border-radius:18px}.display-5{font-size:2.4rem}}
+/* Un menor movimiento evita animaciones innecesarias al solicitar accesibilidad. */
+@media(prefers-reduced-motion:reduce) {.btn-generate{transition:none}}

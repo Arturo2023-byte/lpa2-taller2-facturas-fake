@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+    <!-- Configuracion de caracteres y ajuste para dispositivos moviles. -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#09131f">
+    <meta name="description" content="Generador de facturas PDF con Flask y FastAPI">
+    <title>LPA2 | Generador de Facturas</title>
+    <!-- Bootstrap aporta grillas, botones y formularios adaptables. -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT24jcO7XbQm1t55TwwP3r0" crossorigin="anonymous">
+    <!-- Esta hoja personaliza la identidad oscura del proyecto. -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- La barra superior identifica la aplicacion y las tecnologias utilizadas. -->
+    <nav class="navbar navbar-expand-lg app-nav border-bottom border-secondary-subtle">
+        <div class="container py-2">
+            <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="/">
+                <span class="brand-symbol">L2</span><span>LPA2 <span class="text-accent">/ Facturas</span></span>
+            </a>
+            <span class="badge rounded-pill tech-badge d-none d-sm-inline-block">FLASK + FASTAPI + PDF</span>
+        </div>
+    </nav>
+
+    <!-- Contenido central con una presentacion y el formulario principal. -->
+    <main class="container py-5">
+        <div class="row align-items-center justify-content-between g-5 hero-row">
+            <section class="col-lg-6">
+                <span class="eyebrow">TALLER 02 · LENGUAJES DE PROGRAMACION</span>
+                <h1 class="display-5 fw-bold mt-3 mb-3">Facturas digitales, <span class="text-accent">sin complicaciones.</span></h1>
+                <p class="lead text-soft">Consulta los datos sinteticos de la API y genera un comprobante PDF con los detalles del cliente, los productos y el valor total.</p>
+                <div class="d-flex flex-wrap gap-2 mt-4">
+                    <span class="feature-pill">01 · Consulta API</span>
+                    <span class="feature-pill">02 · Procesa datos</span>
+                    <span class="feature-pill">03 · Exporta PDF</span>
+                </div>
+            </section>
+
+            <!-- El formulario conserva el nombre del campo y la ruta que espera Flask. -->
+            <section class="col-lg-5">
+                <div class="generator-card p-4 p-md-5">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <span class="small text-uppercase text-soft fw-bold tracking">Nueva factura</span>
+                        <span class="status-pill"><span class="status-dot"></span> Generador PDF</span>
+                    </div>
+                    <h2 class="h3 fw-bold mb-2">Generar comprobante</h2>
+                    <p class="text-soft mb-4">Escribe el identificador que deseas incluir en la factura.</p>
+                    <!-- El aviso presenta errores sin mostrar informacion interna del servidor. -->
+                    {% if error %}
+                    <div class="alert alert-danger" role="alert">{{ error }}</div>
+                    {% endif %}
+                    <form id="invoice-form" method="POST" action="{{ url_for('generar_pdf') }}">
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold" for="id_factura">Numero de factura</label>
+                            <input type="text" class="form-control form-control-lg invoice-input" id="id_factura" name="id_factura" placeholder="Ej. FAC-2026-001" maxlength="80" pattern="[A-Za-z0-9._ -]+" required autocomplete="off" aria-describedby="help-id">
+                            <div class="form-text text-soft mt-2" id="help-id">Puedes utilizar letras, numeros, puntos y guiones.</div>
+                        </div>
+                        <button class="btn btn-generate btn-lg w-100 fw-bold" id="generate-btn" type="submit">
+                            <span id="button-label">Generar y descargar PDF</span>
+                        </button>
+                    </form>
+                    <div class="divider-line my-4"></div>
+                    <div class="small text-soft">Los datos de empresa y cliente son ficticios y se generan automaticamente.</div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Las tarjetas informativas explican el flujo solicitado en el README. -->
+        <section class="row g-3 mt-5" aria-label="Funcionamiento del sistema">
+            <div class="col-md-4"><article class="info-card h-100"><div class="step-number">01</div><h3 class="h6 fw-bold mt-3">FastAPI</h3><p class="text-soft mb-0">Genera los datos de la factura con Faker a traves de un endpoint HTTP.</p></article></div>
+            <div class="col-md-4"><article class="info-card h-100"><div class="step-number">02</div><h3 class="h6 fw-bold mt-3">Flask</h3><p class="text-soft mb-0">Recibe el identificador y consulta el servicio backend de manera segura.</p></article></div>
+            <div class="col-md-4"><article class="info-card h-100"><div class="step-number">03</div><h3 class="h6 fw-bold mt-3">ReportLab</h3><p class="text-soft mb-0">Crea un documento PDF con productos, impuestos y resumen de valores.</p></article></div>
+        </section>
+    </main>
+    <footer class="container py-4 small text-soft border-top border-secondary-subtle">LPA2 · Taller 2 · Proyecto academico con datos sinteticos</footer>
+    <!-- El archivo propio gestiona solo la confirmacion visual del envio. -->
+    <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+    <!-- Bootstrap JS aporta comportamiento a componentes que lo necesiten. -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous" defer></script>
+</body>
+</html>
